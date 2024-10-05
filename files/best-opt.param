@@ -1,0 +1,152 @@
+7767517
+150 170
+Input                    images                   0 1 images
+Convolution              /model.0/conv/conv.0/Conv 1 1 images /model.0/conv/conv.2/Relu_output_0 0=32 1=3 3=2 4=1 5=1 6=864 9=1
+Pooling                  /model.0/maxpool/MaxPool 1 1 /model.0/conv/conv.2/Relu_output_0 /model.0/maxpool/MaxPool_output_0 1=3 2=2 3=1 5=1
+Split                    splitncnn_0              1 2 /model.0/maxpool/MaxPool_output_0 /model.0/maxpool/MaxPool_output_0_splitncnn_0 /model.0/maxpool/MaxPool_output_0_splitncnn_1
+ConvolutionDepthWise     /model.1/branch1/branch1.0/Conv 1 1 /model.0/maxpool/MaxPool_output_0_splitncnn_1 /model.1/branch1/branch1.0/Conv_output_0 0=32 1=3 3=2 4=1 5=1 6=288 7=32
+Convolution              /model.1/branch1/branch1.1/Conv 1 1 /model.1/branch1/branch1.0/Conv_output_0 /model.1/branch1/branch1.2/Relu_output_0 0=60 1=1 5=1 6=1920 9=1
+Convolution              /model.1/branch2/branch2.0/Conv 1 1 /model.0/maxpool/MaxPool_output_0_splitncnn_0 /model.1/branch2/branch2.1/Relu_output_0 0=60 1=1 5=1 6=1920 9=1
+ConvolutionDepthWise     /model.1/branch2/branch2.2/Conv 1 1 /model.1/branch2/branch2.1/Relu_output_0 /model.1/branch2/branch2.2/Conv_output_0 0=60 1=3 3=2 4=1 5=1 6=540 7=60
+Convolution              /model.1/branch2/branch2.3/Conv 1 1 /model.1/branch2/branch2.2/Conv_output_0 /model.1/branch2/branch2.4/Relu_output_0 0=60 1=1 5=1 6=3600 9=1
+Concat                   /model.1/Concat          2 1 /model.1/branch1/branch1.2/Relu_output_0 /model.1/branch2/branch2.4/Relu_output_0 /model.1/Concat_output_0
+ShuffleChannel           /model.1/Reshape_1       1 1 /model.1/Concat_output_0 /model.1/Reshape_1_output_0 0=2
+Split                    splitncnn_1              1 2 /model.1/Reshape_1_output_0 /model.1/Reshape_1_output_0_splitncnn_0 /model.1/Reshape_1_output_0_splitncnn_1
+Crop                     /model.2/model.2.0/Slice 1 1 /model.1/Reshape_1_output_0_splitncnn_1 /model.2/model.2.0/Slice_output_0 -23309=1,0 -23310=1,60 -23311=1,0
+Crop                     /model.2/model.2.0/Slice_1 1 1 /model.1/Reshape_1_output_0_splitncnn_0 /model.2/model.2.0/Slice_1_output_0 -23309=1,60 -23310=1,120 -23311=1,0
+Convolution              /model.2/model.2.0/branch2/branch2.0/Conv 1 1 /model.2/model.2.0/Slice_1_output_0 /model.2/model.2.0/branch2/branch2.1/Relu_output_0 0=60 1=1 5=1 6=3600 9=1
+ConvolutionDepthWise     /model.2/model.2.0/branch2/branch2.2/Conv 1 1 /model.2/model.2.0/branch2/branch2.1/Relu_output_0 /model.2/model.2.0/branch2/branch2.2/Conv_output_0 0=60 1=3 4=1 5=1 6=540 7=60
+Convolution              /model.2/model.2.0/branch2/branch2.3/Conv 1 1 /model.2/model.2.0/branch2/branch2.2/Conv_output_0 /model.2/model.2.0/branch2/branch2.4/Relu_output_0 0=60 1=1 5=1 6=3600 9=1
+Concat                   /model.2/model.2.0/Concat 2 1 /model.2/model.2.0/Slice_output_0 /model.2/model.2.0/branch2/branch2.4/Relu_output_0 /model.2/model.2.0/Concat_output_0
+ShuffleChannel           /model.2/model.2.0/Reshape_1 1 1 /model.2/model.2.0/Concat_output_0 /model.2/model.2.0/Reshape_1_output_0 0=2
+Split                    splitncnn_2              1 2 /model.2/model.2.0/Reshape_1_output_0 /model.2/model.2.0/Reshape_1_output_0_splitncnn_0 /model.2/model.2.0/Reshape_1_output_0_splitncnn_1
+Crop                     /model.2/model.2.1/Slice 1 1 /model.2/model.2.0/Reshape_1_output_0_splitncnn_1 /model.2/model.2.1/Slice_output_0 -23309=1,0 -23310=1,60 -23311=1,0
+Crop                     /model.2/model.2.1/Slice_1 1 1 /model.2/model.2.0/Reshape_1_output_0_splitncnn_0 /model.2/model.2.1/Slice_1_output_0 -23309=1,60 -23310=1,120 -23311=1,0
+Convolution              /model.2/model.2.1/branch2/branch2.0/Conv 1 1 /model.2/model.2.1/Slice_1_output_0 /model.2/model.2.1/branch2/branch2.1/Relu_output_0 0=60 1=1 5=1 6=3600 9=1
+ConvolutionDepthWise     /model.2/model.2.1/branch2/branch2.2/Conv 1 1 /model.2/model.2.1/branch2/branch2.1/Relu_output_0 /model.2/model.2.1/branch2/branch2.2/Conv_output_0 0=60 1=3 4=1 5=1 6=540 7=60
+Convolution              /model.2/model.2.1/branch2/branch2.3/Conv 1 1 /model.2/model.2.1/branch2/branch2.2/Conv_output_0 /model.2/model.2.1/branch2/branch2.4/Relu_output_0 0=60 1=1 5=1 6=3600 9=1
+Concat                   /model.2/model.2.1/Concat 2 1 /model.2/model.2.1/Slice_output_0 /model.2/model.2.1/branch2/branch2.4/Relu_output_0 /model.2/model.2.1/Concat_output_0
+ShuffleChannel           /model.2/model.2.1/Reshape_1 1 1 /model.2/model.2.1/Concat_output_0 /model.2/model.2.1/Reshape_1_output_0 0=2
+Split                    splitncnn_3              1 2 /model.2/model.2.1/Reshape_1_output_0 /model.2/model.2.1/Reshape_1_output_0_splitncnn_0 /model.2/model.2.1/Reshape_1_output_0_splitncnn_1
+Crop                     /model.2/model.2.2/Slice 1 1 /model.2/model.2.1/Reshape_1_output_0_splitncnn_1 /model.2/model.2.2/Slice_output_0 -23309=1,0 -23310=1,60 -23311=1,0
+Crop                     /model.2/model.2.2/Slice_1 1 1 /model.2/model.2.1/Reshape_1_output_0_splitncnn_0 /model.2/model.2.2/Slice_1_output_0 -23309=1,60 -23310=1,120 -23311=1,0
+Convolution              /model.2/model.2.2/branch2/branch2.0/Conv 1 1 /model.2/model.2.2/Slice_1_output_0 /model.2/model.2.2/branch2/branch2.1/Relu_output_0 0=60 1=1 5=1 6=3600 9=1
+ConvolutionDepthWise     /model.2/model.2.2/branch2/branch2.2/Conv 1 1 /model.2/model.2.2/branch2/branch2.1/Relu_output_0 /model.2/model.2.2/branch2/branch2.2/Conv_output_0 0=60 1=3 4=1 5=1 6=540 7=60
+Convolution              /model.2/model.2.2/branch2/branch2.3/Conv 1 1 /model.2/model.2.2/branch2/branch2.2/Conv_output_0 /model.2/model.2.2/branch2/branch2.4/Relu_output_0 0=60 1=1 5=1 6=3600 9=1
+Concat                   /model.2/model.2.2/Concat 2 1 /model.2/model.2.2/Slice_output_0 /model.2/model.2.2/branch2/branch2.4/Relu_output_0 /model.2/model.2.2/Concat_output_0
+ShuffleChannel           /model.2/model.2.2/Reshape_1 1 1 /model.2/model.2.2/Concat_output_0 /model.2/model.2.2/Reshape_1_output_0 0=2
+Split                    splitncnn_4              1 3 /model.2/model.2.2/Reshape_1_output_0 /model.2/model.2.2/Reshape_1_output_0_splitncnn_0 /model.2/model.2.2/Reshape_1_output_0_splitncnn_1 /model.2/model.2.2/Reshape_1_output_0_splitncnn_2
+ConvolutionDepthWise     /model.3/branch1/branch1.0/Conv 1 1 /model.2/model.2.2/Reshape_1_output_0_splitncnn_2 /model.3/branch1/branch1.0/Conv_output_0 0=120 1=3 3=2 4=1 5=1 6=1080 7=120
+Convolution              /model.3/branch1/branch1.1/Conv 1 1 /model.3/branch1/branch1.0/Conv_output_0 /model.3/branch1/branch1.2/Relu_output_0 0=116 1=1 5=1 6=13920 9=1
+Convolution              /model.3/branch2/branch2.0/Conv 1 1 /model.2/model.2.2/Reshape_1_output_0_splitncnn_1 /model.3/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13920 9=1
+ConvolutionDepthWise     /model.3/branch2/branch2.2/Conv 1 1 /model.3/branch2/branch2.1/Relu_output_0 /model.3/branch2/branch2.2/Conv_output_0 0=116 1=3 3=2 4=1 5=1 6=1044 7=116
+Convolution              /model.3/branch2/branch2.3/Conv 1 1 /model.3/branch2/branch2.2/Conv_output_0 /model.3/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.3/Concat          2 1 /model.3/branch1/branch1.2/Relu_output_0 /model.3/branch2/branch2.4/Relu_output_0 /model.3/Concat_output_0
+ShuffleChannel           /model.3/Reshape_1       1 1 /model.3/Concat_output_0 /model.3/Reshape_1_output_0 0=2
+Split                    splitncnn_5              1 2 /model.3/Reshape_1_output_0 /model.3/Reshape_1_output_0_splitncnn_0 /model.3/Reshape_1_output_0_splitncnn_1
+Crop                     /model.4/model.4.0/Slice 1 1 /model.3/Reshape_1_output_0_splitncnn_1 /model.4/model.4.0/Slice_output_0 -23309=1,0 -23310=1,116 -23311=1,0
+Crop                     /model.4/model.4.0/Slice_1 1 1 /model.3/Reshape_1_output_0_splitncnn_0 /model.4/model.4.0/Slice_1_output_0 -23309=1,116 -23310=1,232 -23311=1,0
+Convolution              /model.4/model.4.0/branch2/branch2.0/Conv 1 1 /model.4/model.4.0/Slice_1_output_0 /model.4/model.4.0/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+ConvolutionDepthWise     /model.4/model.4.0/branch2/branch2.2/Conv 1 1 /model.4/model.4.0/branch2/branch2.1/Relu_output_0 /model.4/model.4.0/branch2/branch2.2/Conv_output_0 0=116 1=3 4=1 5=1 6=1044 7=116
+Convolution              /model.4/model.4.0/branch2/branch2.3/Conv 1 1 /model.4/model.4.0/branch2/branch2.2/Conv_output_0 /model.4/model.4.0/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.4/model.4.0/Concat 2 1 /model.4/model.4.0/Slice_output_0 /model.4/model.4.0/branch2/branch2.4/Relu_output_0 /model.4/model.4.0/Concat_output_0
+ShuffleChannel           /model.4/model.4.0/Reshape_1 1 1 /model.4/model.4.0/Concat_output_0 /model.4/model.4.0/Reshape_1_output_0 0=2
+Split                    splitncnn_6              1 2 /model.4/model.4.0/Reshape_1_output_0 /model.4/model.4.0/Reshape_1_output_0_splitncnn_0 /model.4/model.4.0/Reshape_1_output_0_splitncnn_1
+Crop                     /model.4/model.4.1/Slice 1 1 /model.4/model.4.0/Reshape_1_output_0_splitncnn_1 /model.4/model.4.1/Slice_output_0 -23309=1,0 -23310=1,116 -23311=1,0
+Crop                     /model.4/model.4.1/Slice_1 1 1 /model.4/model.4.0/Reshape_1_output_0_splitncnn_0 /model.4/model.4.1/Slice_1_output_0 -23309=1,116 -23310=1,232 -23311=1,0
+Convolution              /model.4/model.4.1/branch2/branch2.0/Conv 1 1 /model.4/model.4.1/Slice_1_output_0 /model.4/model.4.1/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+ConvolutionDepthWise     /model.4/model.4.1/branch2/branch2.2/Conv 1 1 /model.4/model.4.1/branch2/branch2.1/Relu_output_0 /model.4/model.4.1/branch2/branch2.2/Conv_output_0 0=116 1=3 4=1 5=1 6=1044 7=116
+Convolution              /model.4/model.4.1/branch2/branch2.3/Conv 1 1 /model.4/model.4.1/branch2/branch2.2/Conv_output_0 /model.4/model.4.1/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.4/model.4.1/Concat 2 1 /model.4/model.4.1/Slice_output_0 /model.4/model.4.1/branch2/branch2.4/Relu_output_0 /model.4/model.4.1/Concat_output_0
+ShuffleChannel           /model.4/model.4.1/Reshape_1 1 1 /model.4/model.4.1/Concat_output_0 /model.4/model.4.1/Reshape_1_output_0 0=2
+Split                    splitncnn_7              1 2 /model.4/model.4.1/Reshape_1_output_0 /model.4/model.4.1/Reshape_1_output_0_splitncnn_0 /model.4/model.4.1/Reshape_1_output_0_splitncnn_1
+Crop                     /model.4/model.4.2/Slice 1 1 /model.4/model.4.1/Reshape_1_output_0_splitncnn_1 /model.4/model.4.2/Slice_output_0 -23309=1,0 -23310=1,116 -23311=1,0
+Crop                     /model.4/model.4.2/Slice_1 1 1 /model.4/model.4.1/Reshape_1_output_0_splitncnn_0 /model.4/model.4.2/Slice_1_output_0 -23309=1,116 -23310=1,232 -23311=1,0
+Convolution              /model.4/model.4.2/branch2/branch2.0/Conv 1 1 /model.4/model.4.2/Slice_1_output_0 /model.4/model.4.2/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+ConvolutionDepthWise     /model.4/model.4.2/branch2/branch2.2/Conv 1 1 /model.4/model.4.2/branch2/branch2.1/Relu_output_0 /model.4/model.4.2/branch2/branch2.2/Conv_output_0 0=116 1=3 4=1 5=1 6=1044 7=116
+Convolution              /model.4/model.4.2/branch2/branch2.3/Conv 1 1 /model.4/model.4.2/branch2/branch2.2/Conv_output_0 /model.4/model.4.2/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.4/model.4.2/Concat 2 1 /model.4/model.4.2/Slice_output_0 /model.4/model.4.2/branch2/branch2.4/Relu_output_0 /model.4/model.4.2/Concat_output_0
+ShuffleChannel           /model.4/model.4.2/Reshape_1 1 1 /model.4/model.4.2/Concat_output_0 /model.4/model.4.2/Reshape_1_output_0 0=2
+Split                    splitncnn_8              1 2 /model.4/model.4.2/Reshape_1_output_0 /model.4/model.4.2/Reshape_1_output_0_splitncnn_0 /model.4/model.4.2/Reshape_1_output_0_splitncnn_1
+Crop                     /model.4/model.4.3/Slice 1 1 /model.4/model.4.2/Reshape_1_output_0_splitncnn_1 /model.4/model.4.3/Slice_output_0 -23309=1,0 -23310=1,116 -23311=1,0
+Crop                     /model.4/model.4.3/Slice_1 1 1 /model.4/model.4.2/Reshape_1_output_0_splitncnn_0 /model.4/model.4.3/Slice_1_output_0 -23309=1,116 -23310=1,232 -23311=1,0
+Convolution              /model.4/model.4.3/branch2/branch2.0/Conv 1 1 /model.4/model.4.3/Slice_1_output_0 /model.4/model.4.3/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+ConvolutionDepthWise     /model.4/model.4.3/branch2/branch2.2/Conv 1 1 /model.4/model.4.3/branch2/branch2.1/Relu_output_0 /model.4/model.4.3/branch2/branch2.2/Conv_output_0 0=116 1=3 4=1 5=1 6=1044 7=116
+Convolution              /model.4/model.4.3/branch2/branch2.3/Conv 1 1 /model.4/model.4.3/branch2/branch2.2/Conv_output_0 /model.4/model.4.3/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.4/model.4.3/Concat 2 1 /model.4/model.4.3/Slice_output_0 /model.4/model.4.3/branch2/branch2.4/Relu_output_0 /model.4/model.4.3/Concat_output_0
+ShuffleChannel           /model.4/model.4.3/Reshape_1 1 1 /model.4/model.4.3/Concat_output_0 /model.4/model.4.3/Reshape_1_output_0 0=2
+Split                    splitncnn_9              1 2 /model.4/model.4.3/Reshape_1_output_0 /model.4/model.4.3/Reshape_1_output_0_splitncnn_0 /model.4/model.4.3/Reshape_1_output_0_splitncnn_1
+Crop                     /model.4/model.4.4/Slice 1 1 /model.4/model.4.3/Reshape_1_output_0_splitncnn_1 /model.4/model.4.4/Slice_output_0 -23309=1,0 -23310=1,116 -23311=1,0
+Crop                     /model.4/model.4.4/Slice_1 1 1 /model.4/model.4.3/Reshape_1_output_0_splitncnn_0 /model.4/model.4.4/Slice_1_output_0 -23309=1,116 -23310=1,232 -23311=1,0
+Convolution              /model.4/model.4.4/branch2/branch2.0/Conv 1 1 /model.4/model.4.4/Slice_1_output_0 /model.4/model.4.4/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+ConvolutionDepthWise     /model.4/model.4.4/branch2/branch2.2/Conv 1 1 /model.4/model.4.4/branch2/branch2.1/Relu_output_0 /model.4/model.4.4/branch2/branch2.2/Conv_output_0 0=116 1=3 4=1 5=1 6=1044 7=116
+Convolution              /model.4/model.4.4/branch2/branch2.3/Conv 1 1 /model.4/model.4.4/branch2/branch2.2/Conv_output_0 /model.4/model.4.4/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.4/model.4.4/Concat 2 1 /model.4/model.4.4/Slice_output_0 /model.4/model.4.4/branch2/branch2.4/Relu_output_0 /model.4/model.4.4/Concat_output_0
+ShuffleChannel           /model.4/model.4.4/Reshape_1 1 1 /model.4/model.4.4/Concat_output_0 /model.4/model.4.4/Reshape_1_output_0 0=2
+Split                    splitncnn_10             1 2 /model.4/model.4.4/Reshape_1_output_0 /model.4/model.4.4/Reshape_1_output_0_splitncnn_0 /model.4/model.4.4/Reshape_1_output_0_splitncnn_1
+Crop                     /model.4/model.4.5/Slice 1 1 /model.4/model.4.4/Reshape_1_output_0_splitncnn_1 /model.4/model.4.5/Slice_output_0 -23309=1,0 -23310=1,116 -23311=1,0
+Crop                     /model.4/model.4.5/Slice_1 1 1 /model.4/model.4.4/Reshape_1_output_0_splitncnn_0 /model.4/model.4.5/Slice_1_output_0 -23309=1,116 -23310=1,232 -23311=1,0
+Convolution              /model.4/model.4.5/branch2/branch2.0/Conv 1 1 /model.4/model.4.5/Slice_1_output_0 /model.4/model.4.5/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+ConvolutionDepthWise     /model.4/model.4.5/branch2/branch2.2/Conv 1 1 /model.4/model.4.5/branch2/branch2.1/Relu_output_0 /model.4/model.4.5/branch2/branch2.2/Conv_output_0 0=116 1=3 4=1 5=1 6=1044 7=116
+Convolution              /model.4/model.4.5/branch2/branch2.3/Conv 1 1 /model.4/model.4.5/branch2/branch2.2/Conv_output_0 /model.4/model.4.5/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.4/model.4.5/Concat 2 1 /model.4/model.4.5/Slice_output_0 /model.4/model.4.5/branch2/branch2.4/Relu_output_0 /model.4/model.4.5/Concat_output_0
+ShuffleChannel           /model.4/model.4.5/Reshape_1 1 1 /model.4/model.4.5/Concat_output_0 /model.4/model.4.5/Reshape_1_output_0 0=2
+Split                    splitncnn_11             1 2 /model.4/model.4.5/Reshape_1_output_0 /model.4/model.4.5/Reshape_1_output_0_splitncnn_0 /model.4/model.4.5/Reshape_1_output_0_splitncnn_1
+Crop                     /model.4/model.4.6/Slice 1 1 /model.4/model.4.5/Reshape_1_output_0_splitncnn_1 /model.4/model.4.6/Slice_output_0 -23309=1,0 -23310=1,116 -23311=1,0
+Crop                     /model.4/model.4.6/Slice_1 1 1 /model.4/model.4.5/Reshape_1_output_0_splitncnn_0 /model.4/model.4.6/Slice_1_output_0 -23309=1,116 -23310=1,232 -23311=1,0
+Convolution              /model.4/model.4.6/branch2/branch2.0/Conv 1 1 /model.4/model.4.6/Slice_1_output_0 /model.4/model.4.6/branch2/branch2.1/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+ConvolutionDepthWise     /model.4/model.4.6/branch2/branch2.2/Conv 1 1 /model.4/model.4.6/branch2/branch2.1/Relu_output_0 /model.4/model.4.6/branch2/branch2.2/Conv_output_0 0=116 1=3 4=1 5=1 6=1044 7=116
+Convolution              /model.4/model.4.6/branch2/branch2.3/Conv 1 1 /model.4/model.4.6/branch2/branch2.2/Conv_output_0 /model.4/model.4.6/branch2/branch2.4/Relu_output_0 0=116 1=1 5=1 6=13456 9=1
+Concat                   /model.4/model.4.6/Concat 2 1 /model.4/model.4.6/Slice_output_0 /model.4/model.4.6/branch2/branch2.4/Relu_output_0 /model.4/model.4.6/Concat_output_0
+ShuffleChannel           /model.4/model.4.6/Reshape_1 1 1 /model.4/model.4.6/Concat_output_0 /model.4/model.4.6/Reshape_1_output_0 0=2
+Split                    splitncnn_12             1 3 /model.4/model.4.6/Reshape_1_output_0 /model.4/model.4.6/Reshape_1_output_0_splitncnn_0 /model.4/model.4.6/Reshape_1_output_0_splitncnn_1 /model.4/model.4.6/Reshape_1_output_0_splitncnn_2
+ConvolutionDepthWise     /model.5/branch1/branch1.0/Conv 1 1 /model.4/model.4.6/Reshape_1_output_0_splitncnn_2 /model.5/branch1/branch1.0/Conv_output_0 0=232 1=3 3=2 4=1 5=1 6=2088 7=232
+Convolution              /model.5/branch1/branch1.1/Conv 1 1 /model.5/branch1/branch1.0/Conv_output_0 /model.5/branch1/branch1.2/Relu_output_0 0=232 1=1 5=1 6=53824 9=1
+Convolution              /model.5/branch2/branch2.0/Conv 1 1 /model.4/model.4.6/Reshape_1_output_0_splitncnn_1 /model.5/branch2/branch2.1/Relu_output_0 0=232 1=1 5=1 6=53824 9=1
+ConvolutionDepthWise     /model.5/branch2/branch2.2/Conv 1 1 /model.5/branch2/branch2.1/Relu_output_0 /model.5/branch2/branch2.2/Conv_output_0 0=232 1=3 3=2 4=1 5=1 6=2088 7=232
+Convolution              /model.5/branch2/branch2.3/Conv 1 1 /model.5/branch2/branch2.2/Conv_output_0 /model.5/branch2/branch2.4/Relu_output_0 0=232 1=1 5=1 6=53824 9=1
+Concat                   /model.5/Concat          2 1 /model.5/branch1/branch1.2/Relu_output_0 /model.5/branch2/branch2.4/Relu_output_0 /model.5/Concat_output_0
+ShuffleChannel           /model.5/Reshape_1       1 1 /model.5/Concat_output_0 /model.5/Reshape_1_output_0 0=2
+Split                    splitncnn_13             1 2 /model.5/Reshape_1_output_0 /model.5/Reshape_1_output_0_splitncnn_0 /model.5/Reshape_1_output_0_splitncnn_1
+Crop                     /model.6/Slice           1 1 /model.5/Reshape_1_output_0_splitncnn_1 /model.6/Slice_output_0 -23309=1,0 -23310=1,232 -23311=1,0
+Crop                     /model.6/Slice_1         1 1 /model.5/Reshape_1_output_0_splitncnn_0 /model.6/Slice_1_output_0 -23309=1,232 -23310=1,464 -23311=1,0
+Convolution              /model.6/branch2/branch2.0/Conv 1 1 /model.6/Slice_1_output_0 /model.6/branch2/branch2.1/Relu_output_0 0=232 1=1 5=1 6=53824 9=1
+ConvolutionDepthWise     /model.6/branch2/branch2.2/Conv 1 1 /model.6/branch2/branch2.1/Relu_output_0 /model.6/branch2/branch2.2/Conv_output_0 0=232 1=3 4=1 5=1 6=2088 7=232
+Convolution              /model.6/branch2/branch2.3/Conv 1 1 /model.6/branch2/branch2.2/Conv_output_0 /model.6/branch2/branch2.4/Relu_output_0 0=232 1=1 5=1 6=53824 9=1
+Concat                   /model.6/Concat          2 1 /model.6/Slice_output_0 /model.6/branch2/branch2.4/Relu_output_0 /model.6/Concat_output_0
+ShuffleChannel           /model.6/Reshape_1       1 1 /model.6/Concat_output_0 /model.6/Reshape_1_output_0 0=2
+Convolution              /model.7/conv/Conv       1 1 /model.6/Reshape_1_output_0 /model.7/conv/Conv_output_0 0=96 1=1 5=1 6=44544
+Swish                    /model.7/act/Mul         1 1 /model.7/conv/Conv_output_0 /model.7/act/Mul_output_0
+Split                    splitncnn_14             1 2 /model.7/act/Mul_output_0 /model.7/act/Mul_output_0_splitncnn_0 /model.7/act/Mul_output_0_splitncnn_1
+Interp                   /model.8/Resize          1 1 /model.7/act/Mul_output_0_splitncnn_1 /model.8/Resize_output_0 0=1 1=2.000000e+00 2=2.000000e+00
+Concat                   /model.9/Concat          2 1 /model.8/Resize_output_0 /model.4/model.4.6/Reshape_1_output_0_splitncnn_0 /model.9/Concat_output_0
+ConvolutionDepthWise     /model.10/conv1/Conv     1 1 /model.9/Concat_output_0 /model.10/Relu_output_0 0=328 1=3 4=1 5=1 6=2952 7=328 9=1
+Convolution              /model.10/conv2/Conv     1 1 /model.10/Relu_output_0 /model.10/Relu_1_output_0 0=96 1=1 5=1 6=31488 9=1
+Convolution              /model.11/conv/Conv      1 1 /model.10/Relu_1_output_0 /model.11/conv/Conv_output_0 0=96 1=1 5=1 6=9216
+Swish                    /model.11/act/Mul        1 1 /model.11/conv/Conv_output_0 /model.11/act/Mul_output_0
+Split                    splitncnn_15             1 2 /model.11/act/Mul_output_0 /model.11/act/Mul_output_0_splitncnn_0 /model.11/act/Mul_output_0_splitncnn_1
+Interp                   /model.12/Resize         1 1 /model.11/act/Mul_output_0_splitncnn_1 /model.12/Resize_output_0 0=1 1=2.000000e+00 2=2.000000e+00
+Concat                   /model.13/Concat         2 1 /model.12/Resize_output_0 /model.2/model.2.2/Reshape_1_output_0_splitncnn_0 /model.13/Concat_output_0
+ConvolutionDepthWise     /model.14/conv1/Conv     1 1 /model.13/Concat_output_0 /model.14/Relu_output_0 0=216 1=3 4=1 5=1 6=1944 7=216 9=1
+Convolution              /model.14/conv2/Conv     1 1 /model.14/Relu_output_0 /model.14/Relu_1_output_0 0=96 1=1 5=1 6=20736 9=1
+Split                    splitncnn_16             1 2 /model.14/Relu_1_output_0 /model.14/Relu_1_output_0_splitncnn_0 /model.14/Relu_1_output_0_splitncnn_1
+ConvolutionDepthWise     /model.15/conv1/Conv     1 1 /model.14/Relu_1_output_0_splitncnn_1 /model.15/Relu_output_0 0=96 1=3 3=2 4=1 5=1 6=864 7=96 9=1
+Convolution              /model.15/conv2/Conv     1 1 /model.15/Relu_output_0 /model.15/Relu_1_output_0 0=96 1=1 5=1 6=9216 9=1
+BinaryOp                 /model.16/Add            2 1 /model.15/Relu_1_output_0 /model.11/act/Mul_output_0_splitncnn_0 /model.16/Add_output_0
+ConvolutionDepthWise     /model.17/conv1/Conv     1 1 /model.16/Add_output_0 /model.17/Relu_output_0 0=96 1=3 4=1 5=1 6=864 7=96 9=1
+Convolution              /model.17/conv2/Conv     1 1 /model.17/Relu_output_0 /model.17/Relu_1_output_0 0=96 1=1 5=1 6=9216 9=1
+Split                    splitncnn_17             1 2 /model.17/Relu_1_output_0 /model.17/Relu_1_output_0_splitncnn_0 /model.17/Relu_1_output_0_splitncnn_1
+ConvolutionDepthWise     /model.18/conv1/Conv     1 1 /model.17/Relu_1_output_0_splitncnn_1 /model.18/Relu_output_0 0=96 1=3 3=2 4=1 5=1 6=864 7=96 9=1
+Convolution              /model.18/conv2/Conv     1 1 /model.18/Relu_output_0 /model.18/Relu_1_output_0 0=96 1=1 5=1 6=9216 9=1
+BinaryOp                 /model.19/Add            2 1 /model.18/Relu_1_output_0 /model.7/act/Mul_output_0_splitncnn_0 /model.19/Add_output_0
+ConvolutionDepthWise     /model.20/conv1/Conv     1 1 /model.19/Add_output_0 /model.20/Relu_output_0 0=96 1=3 4=1 5=1 6=864 7=96 9=1
+Convolution              /model.20/conv2/Conv     1 1 /model.20/Relu_output_0 /model.20/Relu_1_output_0 0=96 1=1 5=1 6=9216 9=1
+Convolution              /model.21/m.0/Conv       1 1 /model.14/Relu_1_output_0_splitncnn_0 /model.21/m.0/Conv_output_0 0=195 1=1 5=1 6=18720
+Reshape                  /model.21/Reshape        1 1 /model.21/m.0/Conv_output_0 /model.21/Reshape_output_0 0=-1 1=65 2=3
+Permute                  /model.21/Transpose      1 1 /model.21/Reshape_output_0 579 0=1
+Convolution              /model.21/m.1/Conv       1 1 /model.17/Relu_1_output_0_splitncnn_0 /model.21/m.1/Conv_output_0 0=195 1=1 5=1 6=18720
+Reshape                  /model.21/Reshape_1      1 1 /model.21/m.1/Conv_output_0 /model.21/Reshape_1_output_0 0=-1 1=65 2=3
+Permute                  /model.21/Transpose_1    1 1 /model.21/Reshape_1_output_0 591 0=1
+Convolution              /model.21/m.2/Conv       1 1 /model.20/Relu_1_output_0 /model.21/m.2/Conv_output_0 0=195 1=1 5=1 6=18720
+Reshape                  /model.21/Reshape_2      1 1 /model.21/m.2/Conv_output_0 /model.21/Reshape_2_output_0 0=-1 1=65 2=3
+Permute                  /model.21/Transpose_2    1 1 /model.21/Reshape_2_output_0 603 0=1
